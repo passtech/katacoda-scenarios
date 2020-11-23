@@ -9,11 +9,18 @@ Si le répertoire config ne contient pas de fichier, il installe une configurati
 
  - Changer les droits pour permettre la création des fichiers de configuration par Docker lors du 1er lancement
 
-`chmod 777 config`
+`chmod 777 config`{{execute}}
+
+- Installer les fichiers de configurations nécessaires à l'application dans le répertoire config précédemment créé
+
+
 
  - Démarrer le conteneur 
 
 `docker run -e SPRING_PROFILES_ACTIVE=saml -v /root/config:/app/config -p 8080:8080 ghcr.io/passtech/saml-service-provider:1.1.0`{{execute}}
 
-TODO : Ouvrir l'url  http://localhost:8080/error.html
+- ## Ouvrir l'url de l'application démarrée dans le container :
+
+https://[[HOST_SUBDOMAIN]]-80-[[KATACODA_HOST]].environments.katacoda.com
+
 
