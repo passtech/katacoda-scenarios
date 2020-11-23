@@ -3,6 +3,7 @@
   "description": "Tester le déploiement des containers pour une sécurité SAML de vos ressources",
   "difficulty": "Beginner",
   "time": "10",
+  "files": [ "files/application-saml.yml", "files/application.yml" ],
   "details": {
     "steps": [
       {
@@ -26,7 +27,9 @@
     }
   },
   "environment": {
-    "uilayout": "terminal"
+    "uilayout": "editor-terminal",
+    "uisettings": "yaml",
+    "uieditorpath": "/root/config"
   },
   "backend": {
     "imageid": "ubuntu1804"

@@ -1,0 +1,137 @@
+# ===================================================================
+# Template commun pour les différentes configurations
+# ===================================================================
+
+logging:
+  level:
+    ROOT: DEBUG
+    io.github.jhipster: DEBUG
+    fr.tech.gar.gestionnaire: DEBUG
+
+spring:
+  profiles:
+    active: saml
+  devtools:
+    restart:
+      enabled: false # Pas de redémarrage automatique -- Gestion par l'application
+      additional-exclude: static/**
+    livereload:
+      enabled: false # we use Webpack dev server + BrowserSync for livereload
+  jackson:
+    serialization:
+      indent-output: true
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:h2:file:./config/service-provider-saml
+    username: sa
+    password:
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    database: H2
+    show-sql: true
+    properties:
+      hibernate.id.new_generator_mappings: true
+      hibernate.connection.provider_disables_autocommit: true
+      hibernate.cache.use_second_level_cache: true
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: false
+  liquibase:
+    # Remove 'faker' if you do not want the sample data to be loaded automatically
+    contexts: prod
+  mail:
+    host: localhost
+    port: 25
+    username:
+    password:
+  messages:
+    cache-duration: PT1S # 1 second, see the ISO 8601 standard
+  thymeleaf:
+    cache: false
+
+# Pas de port SSL. La terminaison doit être réalisé par un reverse proxy
+server:
+  port: 8080
+
+# ===================================================================
+# JHipster specific properties
+#
+# Full reference is available at: https://www.jhipster.tech/common-application-properties/
+# ===================================================================
+
+jhipster:
+  cache: # Cache configuration
+    ehcache: # Ehcache configuration
+      time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
+      max-entries: 100 # Number of objects in each cache entry
+  # CORS is only enabled by default with the "dev" profile, so BrowserSync can access the API
+  cors:
+    allowed-origins: '*'
+    allowed-methods: '*'
+    allowed-headers: '*'
+    exposed-headers: 'Authorization,Link,X-Total-Count'
+    allow-credentials: true
+    max-age: 1800
+  security:
+    authentication:
+      jwt:
+        # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
+        base64-secret: YmNmMjg3OWFjY2RlYjg5ZWU4YWM0OTFmYzUxMjMxNjhmZDkwODgyNzYyNmExMjk1M2RjMjViMzkzOTE5NWY5NjE0MTgyOTgzMzc3Njg0NTcwZDBiNTdmYzc4MWFiN2JkNjMzYjE0YTdkMWVjZWUyNWQxMjQ1NDJlMTI0MjRlOTM=
+        # Token is valid 24 hours
+        token-validity-in-seconds: 86400
+        token-validity-in-seconds-for-remember-me: 2592000
+  mail: # specific JHipster mail property, for standard properties see MailProperties
+    base-url: http://127.0.0.1:8080
+  metrics:
+    logs: # Reports metrics in the logs
+      enabled: true
+      report-frequency: 60 # in seconds
+  logging:
+    use-json-format: false # By default, logs are not in Json format
+    logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
+      enabled: false
+      host: localhost
+      port: 5000
+      queue-size: 512
+  audit-events:
+    retention-period: 30 # Number of days before audit events are deleted.
+
+# ===================================================================
+# Application specific properties
+# Add your own application properties here, see the ApplicationProperties class
+# to have type-safe configuration, like in the JHipsterProperties above
+#
+# More documentation is available at:
+# https://www.jhipster.tech/common-application-properties/
+# ===================================================================
+
+# application:
+saml:
+  keyManager:
+    #keystore: "config/keystore-auth0.jks"
+    keystore: "config/keystore-gar.jks"
+    password: "gar"
+    key:
+      name: "gar"
+      password: "gar"
+  idp:
+    metadata: "https://idp-auth.dev.test-gar.education.fr/idp/metadata"
+    #metadata: "https://passtech.eu.auth0.com/samlp/metadata/nB1ezT8IFi3b0yAg7y8ibCnl0CFQWRvQ"
+  metadata:
+    entityId: "https://dev-saml-service-provider.tech.fr/saml/metadata"
+    #entityId: "https://dev-saml-service-provider-2.tech.fr/saml/metadata"
+  samlProxy:
+    scheme: http
+    serverName: localhost
+    serverPort: 9090
+    includeServerPortInRequestURL: true
+    contextPath: /
+    cookieHmacKey: 9a6dce3206ccaff3de945062475633a90448ed4d
+    
