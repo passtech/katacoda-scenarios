@@ -1,0 +1,1 @@
+cp files/application-saml.yml config/application-saml.yml
