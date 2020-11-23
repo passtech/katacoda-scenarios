@@ -13,7 +13,9 @@ Si le répertoire config ne contient pas de fichier, il installe une configurati
 
 - ### Installer les fichiers de configurations nécessaires à l'application dans le répertoire config précédemment créé
 
+`file/application.yml`{{open}}
 
+`file/application.yml`{{open}}
 
  - ### Démarrer le conteneur 
 
