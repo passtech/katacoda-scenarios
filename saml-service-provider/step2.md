@@ -18,6 +18,8 @@ Voici la liste des paramètres à modifier :
    - **samlProxy** : ces paramètres indiquent le site Web à protéger
 
 
+Ces paramètres sont disponibles à la fin du fichier application-saml.yml
+
 `tail -23 /root/config/application-saml.yml`{{execute}}
 
 
