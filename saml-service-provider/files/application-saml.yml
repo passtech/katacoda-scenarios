@@ -113,9 +113,9 @@ jhipster:
 # ===================================================================
 
 # application:
+
 saml:
   keyManager:
-    #keystore: "config/keystore-auth0.jks"
     keystore: "config/keystore-gar.jks"
     password: "gar"
     key:
@@ -123,15 +123,12 @@ saml:
       password: "gar"
   idp:
     metadata: "https://idp-auth.dev.test-gar.education.fr/idp/metadata"
-    #metadata: "https://passtech.eu.auth0.com/samlp/metadata/nB1ezT8IFi3b0yAg7y8ibCnl0CFQWRvQ"
   metadata:
     entityId: "https://dev-saml-service-provider.tech.fr/saml/metadata"
-    #entityId: "https://dev-saml-service-provider-2.tech.fr/saml/metadata"
   samlProxy:
     scheme: http
     serverName: localhost
     serverPort: 9090
     includeServerPortInRequestURL: true
     contextPath: /
-    cookieHmacKey: 9a6dce3206ccaff3de945062475633a90448ed4d
     
