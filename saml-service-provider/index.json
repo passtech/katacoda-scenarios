@@ -7,16 +7,16 @@
   "details": {
     "steps": [
       {
-        "title": "Installation et démarrage",
+        "title": "Installation",
         "text": "step1.md",
         "code": "setup.sh"
       },
       {
-        "title": "Step 2",
+        "title": "Configuration",
         "text": "step2.md"
       },
       {
-        "title": "Step 3",
+        "title": "Démarrage de l'application",
         "text": "step3.md"
       }
     ],

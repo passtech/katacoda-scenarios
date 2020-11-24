@@ -1,12 +1,28 @@
-- Les fichiers de configuration par défaut installés au 1er lancement ne permettent pas le bon fonctionnement du provider SAML. Il faut maintenant les modifier pour ajouter votre configuration SAML particulière. Dans une configuration simple, il suffit de modifier le fichier application-saml.yaml.
+
+
+Les fichiers de configuration par défaut installés (application.yaml et application-saml.yaml) doivent être modifiés pour permettre le bon fonctionnement du provider SAML. 
+Dans une configuration simple, uniquement le fichier application-saml.yaml doit être modifié
 
 
 Voici la liste des paramètres à modifier :
 
-- keystore: "config/keystore-gar.jks" : préciser les certificats qui seront utilisés pour la création des métadonnées SAML de votre service provider.
+   - keystore: "config/keystore-gar.jks" : Le keystore permet de préciser les certificats qui seront utilisés pour la création des métadonnées SAML de votre service provider. Il doit contenir une clé privé.
+   Le keystore est lisible par l'application uniquement avec un mot de passe.
+
+   Le keystore peut contenir plusieurs certificats. Il est nécessaire de préciser un nom de clé et un password pour l'ouvrir (paramètre key: name et key: password) 
+
+   - idp : La protection SAML peut fonctionner avec différents IDP (Identity provider). Dans cette exemple, celui de l'environnement de test est utilisé.
+
+   - metadata: entityId: C'est un identifiant permettant de préciser l'identité de votre fournisseur de services SAML auprès de l'IDP
+
+   - samlProxy: ces paramètres indiquent le site Web à protéger
+
+```
+tail -23 /root/config/application-saml.yaml
+```{{execute}}
 
 
-cat << EOF >> /root/config/application-saml.yaml
+```
 saml:
   keyManager:
     keystore: "config/keystore-gar.jks"
@@ -15,16 +31,18 @@ saml:
       name: "gar"
       password: "gar"
   idp:
-    metadata: "https://idp-auth.validation.test-gar.education.fr/idp/metadata"
+    metadata: "https://idp-auth.dev.test-gar.education.fr/idp/metadata"
   metadata:
-    entityId: "https://gar-grt-validation-saml.pubqlf.co.as8677.net/saml/metadata"
-EOF
-```{{execute}}
+    entityId: "https://dev-saml-service-provider.tech.fr/saml/metadata"
+  samlProxy:
+    scheme: http
+    serverName: localhost
+    serverPort: 9090
+    includeServerPortInRequestURL: true
+    contextPath: /
+```
 
 
-Vérifier le contenu du fichier modifié :
-
-`cat /root/config/application-saml.yaml`{{execute}}
 
 
 
