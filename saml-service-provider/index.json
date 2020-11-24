@@ -8,8 +8,7 @@
     "steps": [
       {
         "title": "Installation",
-        "text": "step1.md",
-        "code": "setup.sh"
+        "text": "step1.md"
       },
       {
         "title": "Configuration",
